@@ -19,6 +19,13 @@ function App() {
 
   } 
 
+  const sortPopularity =() => {
+    let sortedByPopularity = contacts.sort ((a, b) => a.popularity-b.popularity);
+    setContacts((contacts) =>
+    [...sortedByPopularity]);
+
+  } 
+
   const deleteContacts =() => {
     const filteredContacts = contacts.filter(contact => {
       return contact._id !== contact._Id;
@@ -32,7 +39,7 @@ function App() {
       <h1>IronContacts</h1>
 
       <button onClick={handleRandom}>Add Random Contact</button>
-      <button onClick={sortName}>Sort by popularity</button>
+      <button onClick={sortPopularity}>Sort by popularity</button>
       <button onClick={sortName}>Sort by name</button>
 
       {contacts.map((contact) => {
