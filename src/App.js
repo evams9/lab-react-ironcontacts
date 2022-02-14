@@ -8,24 +8,32 @@ function App() {
   const [contacts, setContacts] =useState(contactsInfo.slice(0,5));
 
   const handleRandom =() => {
-
-    const addRandomContact = () => {
-    const random = contactsInfo[Math.floor(Math.random() * contactsInfo.lenght)]
-     return random;
-    }
-      if (contacts.includes(addRandomContact().id)) {
-        addRandomContact();
-      }else{
-        contacts.push(addRandomContact())
-        setContacts(contacts)
-      }
-
+    const random = contactsInfo[Math.floor(Math.random() * contactsInfo.length)];
+    setContacts([...contacts, random]);
   }
+
+  const sortName =() => {
+    let sortedByName = contacts.sort ((a, b) => a.name.localeCompare(b.name));
+    setContacts((contacts) =>
+    [...sortedByName]);
+
+  } 
+
+  const deleteContacts =() => {
+    const filteredContacts = contacts.filter(contact => {
+      return contact._id !== contact._Id;
+    });
+ 
+    setContacts(filteredContacts);
+  };
+
   return (
     <div className="App">
       <h1>IronContacts</h1>
 
       <button onClick={handleRandom}>Add Random Contact</button>
+      <button onClick={sortName}>Sort by popularity</button>
+      <button onClick={sortName}>Sort by name</button>
 
       {contacts.map((contact) => {
       return (
@@ -37,6 +45,9 @@ function App() {
               <th>Popularity</th>{contact.popularity}
               <th>Won Oscar</th>{contact.wonOscar} 
               <th>Won Emmy</th>{contact.wonEmmy}
+              <button onClick={() => deleteContacts(contacts._id)} className="btn-delete">
+              Delete 
+            </button>
           </tr>
         </table>
         )
